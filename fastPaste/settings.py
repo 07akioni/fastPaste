@@ -79,7 +79,7 @@ WSGI_APPLICATION = 'fastPaste.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': '/home/hrsonion/fastPaste/db.sqlite3',
+        'NAME': 'db.sqlite3',
         'USER': '',
         'PASSWORD': '',
         'HOST': '',

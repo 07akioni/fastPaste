@@ -1,147 +1,30 @@
 <!DOCTYPE html>
-<html lang='en'>
+<html lang='en'>{% load static %}
 	<head>
 		<meta charset="utf-8">
 		<title>Fast Paste</title>
 		<script src="http://libs.baidu.com/jquery/1.11.1/jquery.min.js"></script>
 		<link href='http://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
-		<style>
-			body {
-				font-family: 'Lato';
-			}
-			.main_container {
-				font-size: 1em;
-				box-sizing: border-box;
-				vertical-align: middle;
-				position: relative;
-				width: 800px;
-				margin-left: auto;
-				margin-right: auto;
-			}
-			.text_container {
-				font-size: 1em;
-				box-sizing: border-box;
-				vertical-align: middle;
-				position: relative;
-				width: 542px;
-				margin-left: auto;
-				margin-right: auto;
-			}
-			.button {
-				font-size: 1em;
-				margin: 0.25em 0;
-				vertical-align: baseline;
-				display: inline-block;
-				background-color: #E0E1E2;
-				color: rgba(0, 0, 0, 0.6);
-				padding: 0.8em 1.5em;
-				text-decoration: none;
-				border-radius: 0.25em;
-			}
-			.button:hover {
-				background-color: #CACBCD;
-				color: rgba(0, 0, 0, 0.8);
-			}
-			.segment {
-				font-size: 1em;
-				box-sizing: border-box;
-				vertical-align: middle;
-				position: relative;
-				width: 50%;
-				display: inline-block;
-			}
-			.divider {
-				font-size: 1em;
-				display:block;
-				position:absolute;
-				top: 50%;
-				left: 50%;
-				line-height: 0;
-				text-align: center;
-				height: 50%;
-				width: auto;
-				margin:0;
-				padding:0;
-				transform: translateX(-50%);
-			}
-			.center {
-				text-align: center;
-			}
-			.divider::before {
-				top: -100%;
-				position: absolute;
-				left: 50%;
-				content: " ";
-				border-left: 1px solid rgba(34, 36, 38, .15);
-				width: 0;
-				height: calc(100% - 1rem);
-			}
-			.divider::after {
-				top: auto;
-				bottom: 0;
-				position: absolute;
-				left: 50%;
-				content: " ";
-				border-left: 1px solid rgba(34, 36, 38, 0.15);
-				width: 0;
-				height: calc(100% - 1rem);
-			}
-			.input {
-				width: 162px;
-				padding: 0.8em 1.5em;
-				border: 1px solid rgba(34,36,38,.15);
-				border-radius: 0.25em;
-				font-size: 1em;
-			}
-			.logo {
-				padding: 8px 0px 12px 8px;
-				width: 120px;
-				height: auto;
-				opacity: 0.7;
-			}
-			.nav {
-				border-bottom: 1px solid #DDDDDD;
-				box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.04);
-				margin-bottom: 20px;
-			}
-			.nav_container {
-				width: 800px;
-				margin-left: auto;
-				margin-right: auto;
-			}
-			.textarea {
-				padding: 10px 20px 10px 20px;
-				resize: "none";
-				display: block;
-				width: 500px;
-				margin-left: auto;
-				margin-right: auto;
-				height: 400px;
-				font-family: 'Lato';
-				font-size: 14px;
-			}
-		</style>
+		<link href="{% static 'dist/semantic.min.css' %}" rel="stylesheet">
 	</head>
 	<body>
-		<div class="nav">
-			<div class="nav_container">
-				{% load static %}
-				<a href="/"><img class="logo" src="{% static 'fp.jpg' %}"/></a>
+		<div class="ui masthead vertical segment">
+			<div class="ui text container">
+				<h1><i class="large sticky note outline icon"></i>fastPaste</h1>
 			</div>
 		</div>
-		<div class="text_container">
-			<form id="text" method="post" action="/clipboard/save/">
-				{% csrf_token %}
-				<h1 style="display:inline-block;margin-top:4px;">Clipboard {{ clipboard.hash_str }}</h1>
-				<div class="button" style="float:right;">Save</div>
-				<textarea class="textarea" type="text" name="content">{%if clipboard.content is not None %}{{ clipboard.content }}{% endif %}</textarea>
-				<input type="hidden" name="id" value="{{ clipboard.hash_str }}"></input>
-			</form>
+		<div class="ui text container">
+			<div class="ui basic segment">
+				<form class="ui form" method="post" action="/clipboard/save/">
+					<div class="ui header">剪贴板 {{ clipboard.hash_str }}</div>
+					<div class="field">
+						<textarea type="text" name="content" placeholder="空空如也">{% if clipboard.content %}{{ clipboard.content }}{% endif %}</textarea>
+					</div>
+					<input type="hidden" name="id" value="{{ clipboard.hash_str }}"></input>
+					<div class="ui teal button">保存</div>
+					<a class="ui button" href="/">返回主页</a>
+				</form>
+			</div>
 		</div>
-		<script>
-			$('.button').on('click', function() {
-				$('#text').submit();
-			});
-		</script>
 	</body>
 </html>

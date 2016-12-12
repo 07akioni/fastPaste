@@ -19,7 +19,6 @@ def new_clipboard(request) :
 	return HttpResponseRedirect('/clipboard/' + hash_str)
 
 def clipBoard(request, hash_str) :
-	print('clipBoard')
 	context = {}
 	clipboard = models.Clipboard.objects.get(hash_str = hash_str)
 	context['clipboard'] = clipboard
