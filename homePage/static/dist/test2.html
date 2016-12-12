@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <script src="http://libs.baidu.com/jquery/1.11.1/jquery.min.js"></script>
+        <link rel="stylesheet" type="text/css" class="ui" href="semantic.min.css">
+        <script src="semantic.min.js"></script>
+        <style type="text/css">
+            .fixed.menu {
+                background-color: #2185D0;
+                border-bottom: 1px solid #DDDDDD;
+                box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.04);
+            }
+            .fixed.menu .ui.item {
+                padding: 1.5em;
+            }
+            .logo {
+                height: 35px;
+                width: 60px;
+            }
+            .dropdown {
+
+            }
+            .dimmable.scrolling.dimmed {
+                overflow: hidden!important;
+            }
+            #circle {
+                position:relative;
+                overflow:hidden;
+                top: -2px;
+                width: 48px;
+                height: 48px;
+                background: #000000;
+                border-radius: 5px;
+                margin-right: 12px;
+            }
+            .segment, .segments {
+
+            }
+        </style>
+    </head>
+    <body>
+        <nav>
+            <div class="ui fixed menu">
+                <div class="ui container" style="min-width:1200px!important;">
+                    <div class="ui item">
+                        <i class="university inverted large icon" style="padding-right:0px;margin-right:0px;"></i>
+                    </div>
+                    <div class="ui item">
+                        <div class="ui action input">
+                            <input class="prompt" type="text" placeholder="输入一点东西吧...">
+                            <button class="ui icon button">
+                                  <i class="search icon"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <a class="item" style="color:#FFFFFF;">
+                        首页
+                    </a>
+                    <a class="item post_comment" style="color:#FFFFFF;">
+                        发表评价
+                    </a>
+                        <div class="ui right dropdown item" style="color:#FFFFFF;">
+                            用户名
+                            <i class="dropdown icon"></i>
+                            <div class="menu">
+                                <a class="item">账户</a>
+                                <a class="item">私信</a>
+                                <a class="item">退出</a>
+                            </div>
+                        </div>
+                        <div class="item vertical divider" style="padding-left:0em;padding-right:0em;"></div>
+                </div>
+            </div>
+        </nav>
+        <div class="ui fluid container" style="width:1200px!important;">
+            <div class="ui grid container" style="padding-top:80px;min-width:1200px!important;">
+                <div class="one wide column"></div>
+                <div class="ten wide column">
+                    <h2 class="ui header">
+                        <i class="settings icon"></i>
+                        <div class="content">
+                            智障系统概论
+                            <div class="sub header"><a>葱老师</a><span>&nbsp/&nbsp</span>北京大学</div>
+                        </div>
+                    </h2>
+                </div>
+            </div>
+        </div>
+        <div class="ui divider"></div>
+        <div class="ui grid container" style="padding-top:0px; min-width:1200px!important;">
+            <div class="one wide column" id="context" style="padding-bottom:95px;position:relative;top:-95px;"></div>
+            <div class="ten wide column">
+                <div class="fluid container">
+                    <i class="content icon"></i>
+                    话题动态
+                    <a style="float:right;font-size:0.9em;">按时间排序</a>
+                    <span style="float:right;">&nbsp|&nbsp</span>
+                    <a style="float:right;font-size:0.9em;">按有用程度排序</a>
+                    <div class="ui divider"></div>
+                </div>
+                <div class="ui feed">
+                    <div class="event">
+                        <div class="label">
+                            <i class="spy icon"></i>
+                        </div>
+                        <div class="content">
+                            <div class="summary">
+                                <a class="user">
+                                    智障
+                                </a>
+                                话题下增添了新评论
+                                <div class="date">
+                                    1 Hour Ago
+                                </div>
+                            </div>
+                            <div class="extra text">
+                                这个东西完全是个辣鸡！
+                            </div>
+                            <div class="meta">
+                                <a class="like">
+                                    <i class="like icon"></i> 4 Likes
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ui divider"></div>
+                    <div class="event">
+                        <div class="label">
+                            <i class="spy icon"></i>
+                        </div>
+                        <div class="content">
+                            <div class="summary">
+                                <a class="user">
+                                    智障
+                                </a>
+                                话题下增添了新评论
+                                <div class="date">
+                                    1 Hour Ago
+                                </div>
+                            </div>
+                            <div class="extra text">
+                                这个东西完全是个辣鸡！
+                            </div>
+                            <div class="meta">
+                                <a class="like">
+                                    <i class="like icon"></i> 4 Likes
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ui divider"></div>
+                    <div class="event">
+                        <div class="label">
+                            <i class="spy icon"></i>
+                        </div>
+                        <div class="content">
+                            <div class="summary">
+                                <a class="user">
+                                    智障
+                                </a>
+                                话题下增添了新评论
+                                <div class="date">
+                                    1 Hour Ago
+                                </div>
+                            </div>
+                            <div class="extra text">
+                                这个东西完全是个辣鸡！
+                            </div>
+                            <div class="meta">
+                                <a class="like">
+                                    <i class="like icon"></i> 4 Likes
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ui divider"></div>
+                    <div class="event">
+                        <div class="label">
+                            <i class="spy icon"></i>
+                        </div>
+                        <div class="content">
+                            <div class="summary">
+                                <a class="user">
+                                    智障
+                                </a>
+                                话题下增添了新评论
+                                <div class="date">
+                                    1 Hour Ago
+                                </div>
+                            </div>
+                            <div class="extra text">
+                                这个东西完全是个辣鸡！
+                            </div>
+                            <div class="meta">
+                                <a class="like">
+                                    <i class="like icon"></i> 4 Likes
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ui divider"></div>
+                    <div class="event">
+                        <div class="label">
+                            <i class="spy icon"></i>
+                        </div>
+                        <div class="content">
+                            <div class="summary">
+                                <a class="user">
+                                    智障
+                                </a>
+                                话题下增添了新评论
+                                <div class="date">
+                                    1 Hour Ago
+                                </div>
+                            </div>
+                            <div class="extra text">
+                                <br><br><br><br><br><br><br><br><br>
+                                <br><br><br><br><br><br><br><br><br>
+                                <br><br><br><br><br><br><br><br><br>
+                                <br><br><br><br><br><br><br><br><br>
+                                <br><br><br><br><br><br><br><br><br>
+                                <br><br><br><br><br><br><br><br><br>
+                                <br><br><br><br><br><br><br><br><br>
+                                这个东西完全是个辣鸡！
+                            </div>
+                            <div class="meta">
+                                <a class="like">
+                                    <i class="like icon"></i> 4 Likes
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ui divider"></div>
+                </div>
+            </div>
+            <div class="four wide column" style="">
+                <div class="ui sticky" style="">
+                <div class="ui horizontal basic segments" style="box-shadow: 0 0 0 0 #FFFFFF;margin-top:0px;">
+                    <div class="ui segment">
+                    <p style="width:40px;"><strong>89</strong></p>关注
+                    </div>
+                    <div class="ui segment">
+                    <p style="width:40px;"><strong>201</strong></p>评论
+                    </div>
+                    <div class="ui segment">
+                    <p style="width:40px;"><strong>1085</strong></p>打分
+                    </div>
+                </div>
+                <div class="ui horizontal basic segments" style="box-shadow: 0 0 0 0 #FFFFFF;">
+                    <div style="width:40px;" class="ui segment">
+                    <strong>89</strong>%<i class="frown red icon"></i>
+                    </div>
+                    <div style="width:40px;" class="ui segment">
+                    <strong>10</strong>%<i class="meh yellow icon"></i>
+                    </div>
+                    <div style="width:40px;" class="ui segment">
+                    <strong>1</strong>%<i class="smile green icon"></i>
+                    </div>
+                </div>
+                <div class="ui two buttons">
+                    <button class="ui green button">关注课程</button>
+                    <button class="ui grey button">评价课程</button>
+                </div>
+                <div class="ui divider"></div>
+                <div class="ui list">
+                    <div class="item"><i class="hashtag icon" style=""></i>
+                        <div class="content">
+                            <div class="header">智障系统概论</div>
+                        </div>
+                    </div>
+                    <div class="item"><i class="university icon" style=""></i>
+                        <div class="content">
+                            <div class="header">北京大学</div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <i class="user icon" style="padding-left:2px;padding-right:7px;"></i>
+                        <div class="content">
+                            <div class="header">葱老师</div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <i class="calendar outline icon" style="padding-left:1px;padding-right:5px;"></i>
+                        <div class="content">
+                            <div class="header">每周三</div>
+                            <div class="description">16:00 至 18:00</div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <i class="calendar outline icon" style="padding-left:1px;padding-right:5px;"></i>
+                        <div class="content">
+                            <div class="header">每周四</div>
+                            <div class="description">8:00 至 10:00</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ui divider"></div>
+                <div class="ui link list">
+                    <a class="item">About</a>
+                </div>
+            </div>
+            <div class="one wide column"></div>
+            </div>
+        </div>
+        <div class="ui small modal">
+            <div class="header">
+                评价
+            </div>
+            <div class="content">
+                <textarea rows="1" placeholder="添加名称" style="font-size:1em;padding:10px;border:1px solid #DDDDDD;border-radius:3px;resize:none;width:100%;min-height:1em"></textarea>
+                <div class="ui fitted divider" style="margin-top:1em;margin-bottom:1.2em;"></div>
+                <textarea rows="5" placeholder="添加评论" style="font-size:1em;padding:10px;border:1px solid #DDDDDD;border-radius:3px;resize:none;width:100%;"></textarea>
+            </div>
+            <div class="actions">
+                <div class="ui button">取消</div>
+                <div class="ui button">提交</div>
+            </div>
+        </div>
+        <script type="text/javascript">
+            $(document).ready(function() {
+                    $('.dropdown')
+                    .dropdown();
+                    $('.post_comment').on('click', function(){
+                        $('.ui.modal')
+                        .modal('show');
+                    });
+                    $('.ui.modal .button').on('click', function(){
+                        $('.ui.modal')
+                        .modal('hide');
+                    });
+                    $('.ui.rating')
+                    .rating();
+                    $('.ui.sticky')
+                    .sticky({
+                        context: '#context',
+                        offset: 77
+                    });
+                }
+            );
+        </script>
+    </body>
+    <footer>
+    </footer>
+</html>
