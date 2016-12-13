@@ -14,12 +14,14 @@ def welcome(request) :
 	try :
 		referer = request.META['HTTP_REFERER']
 		tmp = referer.split('/clipboard/')
+		print(tmp)
 		if len(tmp) == 2 :
 			hash_str = tmp[1]
 			if hash_str.isdigit() :
 				context['hash_str'] = int(hash_str)
 			else :
 				tmp = tmp[1].split('?hash_str=')
+				print(tmp)
 				if len(tmp) == 2 :
 					hash_str = tmp[1]
 					if hash_str.isdigit() :
