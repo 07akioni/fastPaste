@@ -4,26 +4,71 @@
 		<meta charset="utf-8">
 		<title>Fast Paste</title>
 		<script src="http://libs.baidu.com/jquery/1.11.1/jquery.min.js"></script>
-		<link href='http://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+		<script src="https://unpkg.com/vue/dist/vue.js"></script>
 		<link href="{% static 'dist/semantic.min.css' %}" rel="stylesheet">
 	</head>
 	<body>
 		<div class="ui masthead vertical segment">
 			<div class="ui text container">
-				<h1><i class="large sticky note outline icon"></i>fastPaste</h1>
+				<div class="ui large header" style="display:inline-block;margin-bottom:0;">
+					<i class="sticky note outline icon" ></i>
+					<div class="content">fastPaste</div>
+				</div>
 			</div>
 		</div>
 		<div class="ui text container">
 			<div class="ui basic segment">
-				<form class="ui form" method="post" action="/clipboard/save/">
-					<div class="ui header">剪贴板 {{ clipboard.hash_str }}</div>
+				<h3 class="ui block header">
+					剪贴板 {{ clipboard.hash_str }}
+				</h3>
+				<form id="clipboard" class="ui form" method="post" action="/clipboard/{{ clipboard.hash_str }}">{% csrf_token %}
 					<div class="field">
-						<textarea type="text" name="content" placeholder="空空如也">{% if clipboard.content %}{{ clipboard.content }}{% endif %}</textarea>
+						{% verbatim %}
+						<textarea type="text" name="content" placeholder="空空如也" v-model="content"></textarea>
+						{% endverbatim %}
 					</div>
 					<input type="hidden" name="id" value="{{ clipboard.hash_str }}"></input>
-					<div class="ui teal button">保存</div>
+					{% verbatim %}
+					<div id="submit_button" class="ui teal button" v-bind:class="{loading : is_loading}">{{ button_content }}</div>
+					{% endverbatim %}
 					<a class="ui button" href="/">返回主页</a>
 				</form>
+				<script>
+					var clipboard = new Vue({
+						el: '#clipboard',
+						data: {
+							content: '',
+							button_content: '保存',
+							is_loading: false,
+						}
+					});
+					$.get(
+						'/clipboard/get/{{ clipboard.hash_str }}',
+						function(data) {
+							clipboard.content = data.content;
+						}
+					);
+					$('#submit_button').on('click', function() {
+						clipboard.is_loading = true;
+						$.post(
+							'/clipboard/post/',
+							{
+								hash_str : {{ clipboard.hash_str }},
+								content : clipboard.content,
+								csrfmiddlewaretoken : $('input[name="csrfmiddlewaretoken"]').val(),
+							},
+							function(data) {
+								if(data.status == 'success') {
+									clipboard.button_content = '保存成功';
+									clipboard.is_loading = false;
+								}
+								else {
+									alert('failed');
+								}
+							}
+						);
+					});
+				</script>
 			</div>
 		</div>
 	</body>

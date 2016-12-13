@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang='en'>{% load static %}
+	<head>
+		<meta charset="utf-8">
+		<title>Fast Paste</title>
+		<script src="http://libs.baidu.com/jquery/1.11.1/jquery.min.js"></script>
+		<script src="https://unpkg.com/vue/dist/vue.js"></script>
+		<link href="{% static 'dist/semantic.min.css' %}" rel="stylesheet">
+	</head>
+	<body>
+		<div class="ui masthead vertical segment">
+			<div class="ui text container">
+				<div class="ui large header" style="display:inline-block;margin-bottom:0;">
+					<i class="sticky note outline icon" ></i>
+					<div class="content">fastPaste</div>
+				</div>
+			</div>
+		</div>
+		<div class="ui text container">
+			<div class="ui basic segment">
+				{% if not error_mesg %}
+				<h3 class="ui block header">
+					未找到 剪贴板 {{ hash_str }}
+				</h3>
+				{% endif %}
+				{% if error_mesg %}
+				<h3 class="ui block header">
+					{{ error_mesg }}
+				</h3>
+				{% endif %}
+				<a class="ui button" href="/">返回主页</a>
+			</div>
+		</div>
+	</body>
+</html>
