@@ -20,5 +20,6 @@ import homePage.views
 urlpatterns = [
     url(r'^$', homePage.views.welcome),
     url(r'^admin/', admin.site.urls),
-	url(r'^clipboard/', include('homePage.urls'))
+	url(r'^clipboard/', include('homePage.urls')),
+	url(r'^[^/s]*', homePage.views.not_found)
 ]

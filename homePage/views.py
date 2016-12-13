@@ -66,6 +66,9 @@ def clipBoard(request, hash_str) :
 	except models.Clipboard.DoesNotExist:
 		context['hash_str'] = hash_str
 		return render(request, 'notfindclipboard.html', context = context)
+	except ValueError :
+		context['error_mesg'] = '剪贴板编号仅能由数字构成'
+		return render(request, 'notfindclipboard.html', context = context)
 
 def get_clipboard(request, hash_str) :
 	context = {}
@@ -74,14 +77,16 @@ def get_clipboard(request, hash_str) :
 		if clipboard.content == None :
 			clipboard.content = ''
 		context['content'] = clipboard.content
-		print(json.dumps(context))
 		return HttpResponse(json.dumps(context), content_type = 'text/json')
 	except models.Clipboard.DoesNotExist :
-		context['hash_str'] = hash_str
-		return render(request, 'notfindclipboard.html', context = context)
+		context['status'] = 'failed'
+		return HttpResponse(json.dumps(context), content_type = 'text/json')
+	except ValueError :
+		context['status'] = 'failed'
+		return HttpResponse(json.dumps(context), content_type = 'text/json')
 
 def post_clipboard(request) :
-	if method == 'POST' :
+	if request.method == 'POST' :
 		try :
 			hash_str = request.POST['hash_str']
 			content = request.POST['content']
@@ -96,3 +101,8 @@ def post_clipboard(request) :
 	else :
 		context = {'status' : 'failed'}
 		return HttpResponse(json.dumps(context), content_type = 'text/json')
+
+def not_found(request) :
+	context = {}
+	context['error_mesg'] = '你访问的页面不存在'
+	return render(request, 'notfindclipboard.html', context = context)
