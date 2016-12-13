@@ -13,7 +13,7 @@ def welcome(request) :
 	context = {}
 	try :
 		referer = request.META['HTTP_REFERER']
-		return HttpResponse(referer)
+		# return HttpResponse(referer)
 		tmp = referer.split('/clipboard/')
 		print(tmp)
 		if len(tmp) == 2 :
@@ -34,7 +34,7 @@ def welcome(request) :
 				context['hash_str'] = None;
 		return render(request, 'home.html', context = context)
 	except KeyError:
-		return HttpResponse("???")
+		# return HttpResponse("???")
 		return render(request, 'home.html', context = context)
 
 def new_clipboard(request) :
