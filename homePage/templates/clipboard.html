@@ -21,9 +21,14 @@
 		</div>
 		<div class="ui text container">
 			<div class="ui basic segment">
-				<h3 class="ui block header">
-					剪贴板 {{ clipboard.hash_str }}
-				</h3>
+				<div class="ui message" id="message" v-bind:class="{warning: timeout}">
+					<h3 class="ui header">
+						剪贴板 {{ clipboard.hash_str }}
+						{% verbatim %}
+						<div class="sub header"><div v-if="timeout">此剪贴板已经失效</div><div v-else>还有{{ lefttime }}秒失效</div></div>
+						{% endverbatim %}
+					</h3>
+				</div>
 				<form id="clipboard" class="ui form" method="post" action="/clipboard/{{ clipboard.hash_str }}">{% csrf_token %}
 					<div class="field">
 						{% verbatim %}
@@ -32,7 +37,7 @@
 					</div>
 					<input type="hidden" name="id" value="{{ clipboard.hash_str }}"></input>
 					{% verbatim %}
-					<div id="submit_button" class="ui teal button" v-bind:class="{loading : is_loading}">{{ button_content }}</div>
+					<div id="submit_button" class="ui teal button" v-bind:class="{loading : is_loading, disabled : timeout}">{{ button_content }}</div>
 					{% endverbatim %}
 					<a class="ui button" href="/">返回主页</a>
 				</form>
@@ -43,8 +48,26 @@
 							content: '',
 							button_content: '保存',
 							is_loading: false,
+							timeout: false,
 						}
 					});
+					var message = new Vue({
+						el: '#message',
+						data: {
+							lefttime: {{ lefttime}},
+							timeout: false,
+						}
+					});
+					function change_time() {
+						if(message.lefttime > 0) {
+							message.lefttime--;
+						}
+						else {
+							message.timeout = true;
+							clipboard.timeout = true;
+						}
+					}
+					setInterval(change_time, 1000)
 					$.get(
 						'/clipboard/get/{{ clipboard.hash_str }}',
 						function(data) {
@@ -66,7 +89,7 @@
 									clipboard.is_loading = false;
 								}
 								else {
-									alert('failed');
+									alert('保存出错');
 								}
 							}
 						);

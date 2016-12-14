@@ -22,14 +22,18 @@
 		<div class="ui text container">
 			<div class="ui basic segment">
 				{% if not error_mesg %}
-				<h3 class="ui block header">
-					未找到 剪贴板 {{ hash_str }}
-				</h3>
+				<div class="ui warning message">
+					<h3 class="ui header">
+						未找到 剪贴板 {{ hash_str }}
+					</h3>
+				</div>
 				{% endif %}
 				{% if error_mesg %}
-				<h3 class="ui block header">
-					{{ error_mesg }}
-				</h3>
+				<div class="ui warning message">
+					<h3 class="ui header">
+						{{ error_mesg }}
+					</h3>
+				</div>
 				{% endif %}
 				<a class="ui button" href="/">返回主页</a>
 			</div>

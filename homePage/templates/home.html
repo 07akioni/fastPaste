@@ -4,7 +4,7 @@
 		<meta charset="utf-8">
 		<title>gotoPaste</title>
 		<script src="http://libs.baidu.com/jquery/1.11.1/jquery.min.js"></script>
-		<link href='http://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+		<script src="https://unpkg.com/vue/dist/vue.js"></script>
 		<link rel="shortcut icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
 		<link rel="icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
 		<link href="{% static 'dist/semantic.min.css' %}" rel="stylesheet">
@@ -39,14 +39,60 @@
 				<div class="ui horizontal divider">
 					再或者
 				</div>
-				<a class="ui disabled button" href="/guide/">
-					查看 gotoPaste 使用指南(暂时还没有)
-				</a>
+				{% verbatim %}
+				<div id="guidebtn" class="ui button" v-on:click="change_status">
+					{{ mesg }} gotoPaste 使用指南
+				</div>
+				{% endverbatim %}
 			</form>
+			<div class="ui basic segment" id="guide" v-if="show">
+				<div class="ui left message">
+					<div class="header">使用指南</div>
+					<p>gotoPaste 是一个方便传递文本信息的工具</p>
+					<ul class="list">
+						<li>你可以创建新的剪贴板</li>
+						<li>你可以使用编号查询存在的剪贴板</li>
+					</ul>
+				</div>
+				<div class="ui warning message">
+					<div class="header">警告</div>
+					<ul class="list">
+						<li>每个剪贴板只存在 5 分钟</li>
+						<li>不要用剪贴板来保存重要信息</li>
+					</ul>
+				</div>
+			</div>
 		</div>
 		<script>
 			$('#toboard').on('click', function() {
 				$('#boardform').submit();
+			});
+			var guide = new Vue({
+				el: '#guide',
+				data: {
+					show: false,
+				}
+			});
+			var guidebtn = new Vue({
+				el: '#guidebtn',
+				data: {
+					close: '查看',
+					open: '关闭',
+					open_status: false,
+					mesg: '查看',
+				},
+				methods: {
+					change_status: function(event) {
+						if(this.open_status) {
+							this.mesg = this.close;
+						}
+						else {
+							this.mesg = this.open;
+						}
+						this.open_status = !this.open_status;
+						guide.show = !guide.show;
+					}
+				}
 			});
 		</script>
 	</body>

@@ -1,11 +1,13 @@
 import random
 import json
+import time
 
 from django.utils import timezone
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from homePage import models
+from django.utils import timezone
 
 
 # Create your views here.
@@ -45,7 +47,9 @@ def new_clipboard(request) :
 			count -= 1
 			models.Clipboard.objects.get(hash_str = hash_str)
 		except models.Clipboard.DoesNotExist :
-			clipBoard = models.Clipboard(hash_str = hash_str, date_time = timezone.now())
+			now_time = timezone.now()
+			int_time = time.mktime(now_time.timetuple())
+			clipBoard = models.Clipboard(hash_str = hash_str, date_time = now_time, int_time = int_time, expire_date_time = int_time + 300)
 			clipBoard.save()
 			return HttpResponseRedirect('/clipboard/' + hash_str)
 	context = {}
@@ -55,13 +59,20 @@ def new_clipboard(request) :
 def clipBoard(request, hash_str) :
 	context = {}
 	if hash_str == '':
-		hash_str = request.GET['hash_str']
+		try :
+			hash_str = request.GET['hash_str']
+		except Exception :
+			context['error_mesg'] = '未找到剪贴板'
+			return render(request, 'notfindclipboard.html', context = context)
 	if hash_str == '':
 		context['error_mesg'] = '搜索不能为空'
 		return render(request, 'notfindclipboard.html', context = context)
 	try :
 		clipboard = models.Clipboard.objects.get(hash_str = hash_str)
 		context['clipboard'] = clipboard
+		context['lefttime'] = int(clipboard.expire_date_time - time.mktime(timezone.now().timetuple()))
+		if(context['lefttime'] < 0) :
+		 	context['lefttime'] = 0
 		return render(request, 'clipboard.html', context = context)
 	except models.Clipboard.DoesNotExist:
 		context['hash_str'] = hash_str
