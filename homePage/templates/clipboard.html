@@ -47,7 +47,7 @@
 					{% verbatim %}
 					<div class="ui buttons">
 						<div class="ui button" v-on:click='add_time(600)' v-bind:class="{ loading: btn10 }">{{ btn10content }}</div>
-						<div class="ui button" v-on:click='add_time(3600)'>{{ btn60content }}</div>
+						<div class="ui button" v-on:click='add_time(3600)' v-bind:class="{ loading: btn60 }">{{ btn60content }}</div>
 					</div>
 					<div id="submit_button" class="ui teal button" v-bind:class="{loading : is_loading, disabled : timeout}">{{ button_content }}</div>
 					{% endverbatim %}
