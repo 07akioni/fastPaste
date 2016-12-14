@@ -8,15 +8,18 @@
 		<link rel="shortcut icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
 		<link rel="icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
 		<link href="{% static 'dist/semantic.min.css' %}" rel="stylesheet">
+		<script src="{% static 'dist/components/dimmer.min.js' %}"></script>
+		<script src="{% static 'dist/components/modal.min.js' %}"></script>
+		<script src="{% static 'dist/components/transition.min.js' %}"></script>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 	</head>
 	<body>
 		<div class="ui masthead vertical segment">
 			<div class="ui text container">
-				<div class="ui large header" style="display:inline-block;margin-bottom:0;">
+				<a class="ui large header" style="display:inline-block;margin-bottom:0;" href="/">
 					<i class="sticky note outline icon" ></i>
 					<div class="content">gotoPaste</div>
-				</div>
+				</a>
 			</div>
 		</div>
 		<div class="ui text container">
@@ -52,6 +55,7 @@
 					<ul class="list">
 						<li>你可以创建新的剪贴板</li>
 						<li>你可以使用编号查询存在的剪贴板</li>
+						<li>可以增加时间，但增加总时长最多两小时</li>
 						<li>从剪贴板返回时，主页会显示刚才访问的剪贴板编号</li>
 					</ul>
 				</div>
@@ -62,6 +66,30 @@
 						<li>不要用剪贴板来保存重要信息</li>
 						<li>最好记下你的编号，说不定你就忘了</li>
 					</ul>
+				</div>
+			</div>
+			<div class="ui section divider"></div>
+			<div class="ui center aligned basic segment">
+				<div class="ui horizontal list">
+					<a class="item">
+						Author : 07akioni
+					</a>
+					<a class="item">
+						Wechat : physicsturtle
+					</a>
+				</div>
+				<div class="ui list">
+					<a class="item" id="donate">
+						捐助一大杯酸梅汤
+					</a>
+				</div>
+			</div>
+		</div>
+		<div class="ui basic modal">
+			<i class="close icon"></i>
+			<div class="image content">
+				<div class="ui medium image" style="margin-left:auto;margin-right:auto;">
+					<img src="{% static 'zfb.jpg' %}">
 				</div>
 			</div>
 		</div>
@@ -95,6 +123,10 @@
 						guide.show = !guide.show;
 					}
 				}
+			});
+			$('.ui.modal').modal();
+			$('#donate').on('click', function() {
+				$('.ui.modal').modal('show');
 			});
 		</script>
 	</body>

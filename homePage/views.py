@@ -113,6 +113,37 @@ def post_clipboard(request) :
 		context = {'status' : 'failed'}
 		return HttpResponse(json.dumps(context), content_type = 'text/json')
 
+def add_max_scope(request) :
+	if request.method == 'POST' :
+		try :
+			hash_str = request.POST['hash_str']
+			add_time = int(request.POST['add_time'])
+			clipboard = models.Clipboard.objects.get(hash_str = hash_str)
+			if clipboard.valid_scope >= clipboard.max_valid_scope :
+				context = {'status' : 'failed', 'info' : "max"}
+				return HttpResponse(json.dumps(context), content_type = 'text/json')
+			if clipboard.valid_scope + add_time < clipboard.max_valid_scope :
+				clipboard.expire_date_time += add_time
+				clipboard.valid_scope += add_time
+				clipboard.save()
+				context = {'status' : 'success', 'info' : "none", 'add_time' : add_time}
+				return HttpResponse(json.dumps(context), content_type = 'text/json')
+			elif clipboard.valid_scope + add_time >= clipboard.max_valid_scope :
+				clipboard.expire_date_time += (clipboard.max_valid_scope - clipboard.valid_scope)
+				context = {'status' : 'success', 'info' : "none", 'add_time' : (clipboard.max_valid_scope - clipboard.valid_scope)}
+				clipboard.valid_scope = clipboard.max_valid_scope
+				clipboard.save()
+				return HttpResponse(json.dumps(context), content_type = 'text/json')
+			else :
+				context = {'status' : 'failed', 'info' : "none"}
+				return HttpResponse(json.dumps(context), content_type = 'text/json')
+		except:
+			context = {'status' : 'failed', 'info' : 'none'}
+			return HttpResponse(json.dumps(context), content_type = 'text/json')
+	else :
+		context = {'status' : 'failed', info: 'none'}
+		return HttpResponse(json.dumps(context), content_type = 'text/json')
+
 def not_found(request) :
 	context = {}
 	context['error_mesg'] = '你访问的页面不存在'

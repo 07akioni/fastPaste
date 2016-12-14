@@ -7,4 +7,5 @@ class Clipboard(models.Model) :
 	date_time = models.DateTimeField(null = False)
 	int_time = models.IntegerField(null = False)
 	valid_scope = models.IntegerField(null = False, default = 300)
+	max_valid_scope = models.IntegerField(null = False, default = 7500)
 	expire_date_time = models.IntegerField(null = False)
